@@ -18,9 +18,12 @@ $Users->Limit(FIELD => 'EmailAddress', OPERATOR => 'LIKE', VALUE => "\%$Email%")
 my $users = qq{<ul class="contacts">};
 
 while (my $User = $Users->Next()) {
-    next if ($User->id == $RT::Nobody->id); # skip nobody here, so we can make them first later
+    next if ($User->id == $RT::Nobody->id);
+
+    # some cleaning on emailadress
     next if $User->EmailAddress !~ m{[a-zA-Z0-9_.-]+@[^.]+\.[^.]};
     next if $User->EmailAddress =~ m{[,?!/;\\]};
+
     my $email = $User->EmailAddress;
     $users .= qq{<li class="contact"><div class="email">$email</div></li>};
 }
