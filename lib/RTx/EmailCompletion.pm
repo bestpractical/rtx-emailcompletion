@@ -10,7 +10,7 @@ __END__
 
 =head1 NAME
 
-RTx::EmailCompletion - Add auto completion to RT email field
+RTx::EmailCompletion - Add auto completion on RT email fields
 
 =head1 VERSION
 
@@ -19,7 +19,9 @@ This document describes version 0.01 of RTx::EmailCompletion.
 =head1 DESCRIPTION
 
 I'm so tired to type email address by hand that I've done this module
-to add AJAX autocompletion on all email field of RT
+to add AJAX autocompletion on all email field of RT. As adding
+completion is dynamic, it should work on most RT releases (see later
+if it's not the case).
 
 There's 3 S<things :>
 

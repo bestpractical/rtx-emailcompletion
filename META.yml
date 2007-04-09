@@ -5,7 +5,7 @@ author: Nicolas Chuche <nchuche@barna.be>
 license: mit
 distribution_type: module
 requires:
-  RT: 3.6
+  RT: 0
 no_index:
   directory:
     - html
