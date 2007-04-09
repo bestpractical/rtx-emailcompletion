@@ -1,0 +1,29 @@
+--- /opt/rt3/share/html/Ticket/Elements/AddWatchers	2006-06-20 00:44:04.000000000 +0200
++++ html/Ticket/Elements/AddWatchers	2007-04-09 02:06:18.000000000 +0200
+@@ -79,17 +79,23 @@
+ <tr><td>
+ <&/Elements/SelectWatcherType, Name => "WatcherTypeEmail1" &>
+ </td><td>
+-<input name="WatcherAddressEmail1" size="15" />
++<input name="WatcherAddressEmail1" size="15" id="WatcherAddressEmail1" />
++<div class="auto_complete" id="WatcherAddressEmail1_to_auto_complete" id="WatcherAddressEmail1"></div>
++<script type="text/javascript">new Ajax.Autocompleter('WatcherAddressEmail1', 'WatcherAddressEmail1_to_auto_complete', '/Ajax/Email', {})</script>
+ </td></tr>
+ <tr><td>
+ <&/Elements/SelectWatcherType, Name => "WatcherTypeEmail2" &>
+ </td><td>
+-<input name="WatcherAddressEmail2" size="15" />
++<input name="WatcherAddressEmail2" size="15" id="WatcherAddressEmail2" />
++<div class="auto_complete" id="WatcherAddressEmail2_to_auto_complete" id="WatcherAddressEmail2"></div>
++<script type="text/javascript">new Ajax.Autocompleter('WatcherAddressEmail2', 'WatcherAddressEmail2_to_auto_complete', '/Ajax/Email', {})</script>
+ </td></tr>
+ <tr><td>
+ <&/Elements/SelectWatcherType, Name => "WatcherTypeEmail3" &>
+ </td><td>
+-<input name="WatcherAddressEmail3" size="15" />
++<input name="WatcherAddressEmail3" size="15" id="WatcherAddressEmail3" />
++<div class="auto_complete" id="WatcherAddressEmail3_to_auto_complete" id="WatcherAddressEmail3"></div>
++<script type="text/javascript">new Ajax.Autocompleter('WatcherAddressEmail3', 'WatcherAddressEmail3_to_auto_complete', '/Ajax/Email', {})</script>
+ </td></tr>
+ </table>
+

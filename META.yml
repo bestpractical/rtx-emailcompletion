@@ -1,0 +1,13 @@
+name: RTx::EmailCompletion
+version: 0.01
+abstract: Add autocompletion on mail field
+author: Nicolas Chuche <nchuche@barna.be>
+license: mit
+distribution_type: module
+requires:
+  RT: 3.6
+no_index:
+  directory:
+    - html
+    - inc
+generated_by: handmade

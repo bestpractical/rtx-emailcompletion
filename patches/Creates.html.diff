@@ -1,0 +1,38 @@
+--- /opt/rt3/share/html/Ticket/Create.html	2006-09-26 17:06:31.000000000 +0200
++++ html/Ticket/Create.html	2007-04-09 02:00:29.000000000 +0200
+@@ -80,7 +80,10 @@
+ <&|/l&>Requestors</&>:
+ </td>
+ <td class="value" colspan="5">
+-<input name="Requestors" value="<% ($ARGS{Requestors}) || $session{CurrentUser}->EmailAddress %>" size="40" />
++<% # add for RTx::EmailCompletion %>
++<input name="Requestors" value="<% ($ARGS{Requestors}) || $session{CurrentUser}->EmailAddress %>" size="40" id="requestors"/>
++<div class="auto_complete" id="requestors_to_auto_complete"></div>
++<script type="text/javascript">new Ajax.Autocompleter('requestors', 'requestors_to_auto_complete', '/Ajax/Email', { tokens: ',' })</script>
+ </td>
+ </tr>
+ <tr>
+@@ -88,7 +91,10 @@
+ <&|/l&>Cc</&>:
+ </td>
+ <td class="value" colspan="5">
+-<input name="Cc" size="40" value="<% $ARGS{Cc} %>" /><br />
++<% # add for RTx::EmailCompletion %>
++<input name="Cc" size="40" value="<% $ARGS{Cc} %>" id="cc" /><br />
++<div class="auto_complete" id="cc_to_auto_complete"></div>
++<script type="text/javascript">new Ajax.Autocompleter('cc', 'cc_to_auto_complete', '/Ajax/Email', { tokens: ',' })</script>
+ <i><font size="-2">
+ <&|/l&>(Sends a carbon-copy of this update to a comma-delimited list of email addresses. These people <strong>will</strong> receive future updates.)</&></font></i>
+ </td>
+@@ -98,7 +104,10 @@
+ <&|/l&>Admin Cc</&>:
+ </td>
+ <td class="value" colspan="5">
+-<input name="AdminCc" size="40" value="<% $ARGS{AdminCc} %>" /><br />
++<% # add for RTx::EmailCompletion %>
++<input name="AdminCc" size="40" value="<% $ARGS{AdminCc} %>" id="admincc" /><br />
++<div class="auto_complete" id="admincc_to_auto_complete"></div>
++<script type="text/javascript">new Ajax.Autocompleter('admincc', 'admincc_to_auto_complete', '/Ajax/Email', { tokens: ',' })</script>
+ <i><font size="-2">
+ <&|/l&>(Sends a carbon-copy of this update to a comma-delimited list of administrative email addresses. These people <strong>will</strong> receive future updates.)</&></font></i>
+ </td>

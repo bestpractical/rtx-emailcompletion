@@ -1,0 +1,4 @@
+<script src="<%$RT::WebPath%>/NoAuth/js/prototype.js" type="text/javascript"></script>
+<script src="<%$RT::WebPath%>/NoAuth/js/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
+
+<link rel="stylesheet" href="<%$RT::WebPath%>/NoAuth/css/completion.css" type="text/css" media="all" />
