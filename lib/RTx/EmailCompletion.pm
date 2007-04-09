@@ -10,16 +10,16 @@ __END__
 
 =head1 NAME
 
-RTx::EmailCompletion - Auto completion for email field
+RTx::EmailCompletion - Add auto completion to RT email field
 
 =head1 VERSION
 
-This document describes version 0.01 of RTx::EmailCompletion
+This document describes version 0.01 of RTx::EmailCompletion.
 
 =head1 DESCRIPTION
 
 I'm so tired to type email address by hand that I've done this module
-try Add ajax autocompletion on email field
+to add AJAX autocompletion on all email field of RT
 
 There's 3 S<things :>
 
@@ -27,31 +27,48 @@ There's 3 S<things :>
 
 =item *
 
-a small web service C<html/Ajax/Email> which search in all known users
-in the database
+a small web service C<html/Ajax/EmailCompletion> which search in all
+known users in the S<database ;>
 
 =item *
 
-the scriptaculous library to autocomplete
+prototype library to manipulate DOM and scriptaculous library to
+S<autocomplete ;>
 
 =item *
 
-and modified html RT pages to use those two first component
+a small javascript which parse html pages and add autocomplete on
+known input tags.
 
 =back
 
-As I've embedded some pages of RT, it should work only for release
-3.6.3. But I keep the patches of all modified files in C<patches/> so
-you can try to use them against other release.
-
 =head1 INSTALLATION
 
-Install it like a standard perl module
+Install it like a standard perl module :
 
- perl Makefile.PL
+ RTHOME=/opt/rt3 perl Makefile.PL
  make
  make install
 
+=head1 HOW TO ADD FIELD TO AUTOCOMPLETION
+
+If you find email field without autocomplete, you can modify
+C<html/NoAuth/js/emailcompletion.js> to handle this field (and email
+me to patch this module).
+
+At the beginning of this file you will find two global vars
+C<multipleCompletion> and C<singleCompletion>. They are array of
+regexp.
+
+Regexp must match all the word because C<^> and C<$> are added for
+matching. So if you want to match C<Field1> and C<Field2> you must add
+something like C<Field.> or better C<Field[12]>.
+
+=head1 HISTORY
+
+The first version (unreleased) modify html pages. The better method
+actually used allow this module to be compatible with, virtually, all
+RT release.
 
 =head1 AUTHORS
 
