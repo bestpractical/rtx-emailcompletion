@@ -42,8 +42,7 @@ function addAutoComplete() {
 
 	input.setAttribute("id", inputName);
 
-	// FIXME "je suis la"
-	var div = '<div class="autocomplete" id="' + inputName + '_to_auto_complete">je suis la</div>';
+	var div = '<div class="autocomplete" id="' + inputName + '_to_auto_complete" />';
 	div += '<script type="text/javascript">new Ajax.Autocompleter(\'' + inputName;
 	div += "', '" + inputName + "_to_auto_complete', '<%$RT::WebPath%>/Ajax/EmailCompletion\', {" + options + "})</script>";
 
