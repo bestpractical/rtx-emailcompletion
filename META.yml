@@ -1,6 +1,6 @@
 name: RTx::EmailCompletion
 version: 0.01
-abstract: Add autocompletion on mail field
+abstract: Add autocompletion on email address field
 author: Nicolas Chuche <nchuche@barna.be>
 license: mit
 distribution_type: module
