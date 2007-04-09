@@ -12,8 +12,6 @@ for (keys %ARGS) {
      if defined $ARGS{$_};
 }
 
-print STDERR "email: $Email\n";
-
 my $Users = RT::Users->new($CurrentUser);
 $Users->Limit(FIELD => 'EmailAddress', OPERATOR => 'LIKE', VALUE => "\%$Email%");
 
