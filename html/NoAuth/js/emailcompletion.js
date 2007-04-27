@@ -42,6 +42,9 @@ function addAutoComplete() {
 
 	input.setAttribute("id", inputName);
 
+	// DEBUGGING PURPOSE
+	// input.setAttribute("class", "emailcompletiondebug");
+
 	var div = '<div class="autocomplete" id="' + inputName + '_to_auto_complete" />';
 	div += '<script type="text/javascript">new Ajax.Autocompleter(\'' + inputName;
 	div += "', '" + inputName + "_to_auto_complete', '<%$RT::WebPath%>/Ajax/EmailCompletion\', {" + options + "})</script>";

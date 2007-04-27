@@ -43,3 +43,7 @@ li.contact div.email {
   border:1px solid #888;
   cursor:move;
 }
+
+.emailcompletiondebug {
+  border: 3px solid #F00;
+}
