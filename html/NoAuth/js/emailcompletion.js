@@ -34,16 +34,18 @@ function addAutoComplete() {
 	if ( ! inputName.match(globalRegexp) )
 	    continue;
 
-	// if multiple email address are allowed we add an tokens
+	// if multiple email address are allowed we add the token
 	// option to Autocompleter
 	var options = '';
 	if (inputName.match(multipleRegexp))
-	    options = "tokens: ','"
+	    options = "tokens: ','";
 
-	input.setAttribute("id", inputName);
+	// we must set an id for scriptaculous
+	// we use the name that seems to be uniq
+	input.id = inputName;
 
 	// DEBUGGING PURPOSE
-	// input.setAttribute("class", "emailcompletiondebug");
+	// input.className += input.className? " emailcompletiondebug" : "emailcompletiondebug";
 
 	var div = '<div class="autocomplete" id="' + inputName + '_to_auto_complete" />';
 	div += '<script type="text/javascript">new Ajax.Autocompleter(\'' + inputName;
