@@ -45,7 +45,7 @@ function addAutoComplete() {
 	input.id = inputName;
 
 	// DEBUGGING PURPOSE
-	input.className += input.className? " emailcompletiondebug" : "emailcompletiondebug";
+	// input.className += input.className? " emailcompletiondebug" : "emailcompletiondebug";
 
 	var div = '<div class="autocomplete" id="' + inputName + '_to_auto_complete" />';
 	div += '<script type="text/javascript">new Ajax.Autocompleter(\'' + inputName;
