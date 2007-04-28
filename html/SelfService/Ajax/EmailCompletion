@@ -1,0 +1,58 @@
+<%ARGS>
+</%ARGS>
+
+<%INIT>
+$RT::EmailCompletionNonPrivileged ||= '';
+
+my $CurrentUser = $session{CurrentUser};
+
+# by default SelfService users aren't allowed to use EmailCompletion
+$m->abort
+    unless $CurrentUser->Privileged() or $RT::EmailCompletionUnprivileged;
+
+my $Email;
+
+# whatever the argument, we want to find by email
+for (keys %ARGS) {
+  $Email = $ARGS{$_}, last
+     if defined $ARGS{$_};
+}
+
+my $Users = RT::Users->new($CurrentUser);
+$Users->Limit(FIELD => 'EmailAddress', OPERATOR => 'LIKE', VALUE => "\%$Email%");
+
+my $users = qq{<ul class="contacts">};
+
+while (my $User = $Users->Next()) {
+    next if $User->id == $RT::Nobody->id;
+
+    # some cleaning on emailaddress
+    next if $User->EmailAddress !~ m{[a-zA-Z0-9_.-]+@[^.]+\.[^.]};
+    next if $User->EmailAddress =~ m{[,?!/;\\]};
+
+    # if you're privileged user you can see anybody
+    #
+    # if you're not by default you can see nobody
+    # if RT::EmailCompletionUnprivileged is set to anybody you can see anybody
+    # else you can see only privileged users
+
+    if ( $CurrentUser->Privileged() or $RT::EmailCompletionUnprivileged eq 'everybody' ) {
+	# Ok, show everybody
+    } elsif ( $RT::EmailCompletionUnprivileged eq 'privileged' ) {
+	next unless $User->Privileged();
+    } elsif ( ref($RT::EmailCompletionUnprivileged) eq 'Regexp' ) {
+	next unless $User->EmailAddress =~ m/$RT::EmailCompletionUnprivileged/;
+    } else {
+	next
+    }
+
+    my $email = $User->EmailAddress;
+    $users .= qq{<li class="contact"><div class="email">$email</div></li>};
+}
+
+$users .= '</ul>';
+
+$m->out($users);
+$m->abort;
+
+</%INIT>

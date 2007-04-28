@@ -52,6 +52,33 @@ Install it like a standard perl module :
  make
  make install
 
+=head1 CONFIGURATION
+
+By default, completion works only for privileged users.
+
+You can activate it for unprivileged users (in the SelfService) by
+setting $EmailCompletionUnprivileged in RTHOME/etc/RT_SiteConfig.pm
+like this :
+
+=over
+
+=item *
+show everybody
+
+  Set($EmailCompletionUnprivileged,"everybody");
+
+=item *
+show only privileged users
+
+  Set($EmailCompletionUnprivileged,"privileged");
+
+=item *
+show only email matching a regexp
+
+  Set($EmailCompletionUnprivileged, qr/\@my\.corp\.domain$/ );
+
+=back
+
 =head1 HOW TO ADD FIELD TO AUTOCOMPLETION
 
 If you find email field without autocomplete, you can modify
@@ -65,6 +92,10 @@ regexp.
 Regexp must match all the word because C<^> and C<$> are added for
 matching. So if you want to match C<Field1> and C<Field2> you must add
 something like C<Field.> or better C<Field[12]>.
+
+To verify javascript find your input tag, you can uncomment the line
+just after the "DEBUGGING PURPOSE" one. All input tags find by the
+script will appear with a big red border.
 
 =head1 HISTORY
 

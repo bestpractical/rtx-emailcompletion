@@ -45,11 +45,11 @@ function addAutoComplete() {
 	input.id = inputName;
 
 	// DEBUGGING PURPOSE
-	// input.className += input.className? " emailcompletiondebug" : "emailcompletiondebug";
+	input.className += input.className? " emailcompletiondebug" : "emailcompletiondebug";
 
 	var div = '<div class="autocomplete" id="' + inputName + '_to_auto_complete" />';
 	div += '<script type="text/javascript">new Ajax.Autocompleter(\'' + inputName;
-	div += "', '" + inputName + "_to_auto_complete', '<%$RT::WebPath%>/Ajax/EmailCompletion\', {" + options + "})</script>";
+	div += "', '" + inputName + "_to_auto_complete', '<%$RT::WebPath%>/SelfService/Ajax/EmailCompletion\', {" + options + "})</script>";
 
 	// use prototype to add the div after input
 	new Insertion.After(inputName,div);
