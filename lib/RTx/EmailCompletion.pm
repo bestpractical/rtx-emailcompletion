@@ -2,7 +2,7 @@ package RTx::EmailCompletion;
 
 use strict;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 1;
 
@@ -14,7 +14,7 @@ RTx::EmailCompletion - Add auto completion on RT email fields
 
 =head1 VERSION
 
-This document describes version 0.01 of RTx::EmailCompletion.
+This document describes version 0.02 of RTx::EmailCompletion.
 
 =head1 DESCRIPTION
 
@@ -46,6 +46,8 @@ known input tags.
 
 =head1 INSTALLATION
 
+if upgrading from 0.01, see later UPGRADE FROM 0.01.
+
 Install it like a standard perl module :
 
  RTHOME=/opt/rt3 perl Makefile.PL
@@ -57,8 +59,8 @@ Install it like a standard perl module :
 By default, completion works only for privileged users.
 
 You can activate it for unprivileged users (in the SelfService) by
-setting $EmailCompletionUnprivileged in RTHOME/etc/RT_SiteConfig.pm
-like this :
+setting $EmailCompletionUnprivileged in
+RTHOME/etc/RT_SiteConfig.pm. There's three ways :
 
 =over
 
@@ -96,6 +98,17 @@ something like C<Field.> or better C<Field[12]>.
 To verify javascript find your input tag, you can uncomment the line
 just after the "DEBUGGING PURPOSE" one. All input tags find by the
 script will appear with a big red border.
+
+=head1 UPGRADE FROM 0.01
+
+As directory structure has change, If you upgrade from 0.01, you must
+delete :
+
+  RTHOME/local/html/Ajax/EmailCompletion
+  RTHOME/local/html/NoAuth/js/emailcompletion.js
+  RTHOME/local/html/NoAuth/js/
+
+Be careful of you have other javascripts in RTHOME/local/html/NoAuth/js/
 
 =head1 HISTORY
 
