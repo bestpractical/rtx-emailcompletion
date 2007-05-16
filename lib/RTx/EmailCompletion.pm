@@ -2,7 +2,7 @@ package RTx::EmailCompletion;
 
 use strict;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 1;
 
@@ -14,7 +14,7 @@ RTx::EmailCompletion - Add auto completion on RT email fields
 
 =head1 VERSION
 
-This document describes version 0.02 of RTx::EmailCompletion.
+This document describes version 0.03 of RTx::EmailCompletion.
 
 =head1 DESCRIPTION
 
