@@ -6,6 +6,8 @@ $RT::EmailCompletionNonPrivileged ||= '';
 
 my $CurrentUser = $session{CurrentUser};
 
+my $Operator = $RT::EmailCompletionSearch || 'LIKE';
+
 # by default SelfService users aren't allowed to use EmailCompletion
 $m->abort
     unless $CurrentUser->Privileged() or $RT::EmailCompletionUnprivileged;
@@ -19,7 +21,7 @@ for (keys %ARGS) {
 }
 
 my $Users = RT::Users->new($CurrentUser);
-$Users->Limit(FIELD => 'EmailAddress', OPERATOR => 'LIKE', VALUE => "\%$Email%");
+$Users->Limit(FIELD => 'EmailAddress', OPERATOR => $Operator, VALUE => $Email);
 
 my $users = qq{<ul class="contacts">};
 

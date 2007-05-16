@@ -81,6 +81,17 @@ show only email matching a regexp
 
 =back
 
+You can also change the operator used in the C<where> clause to search
+email with the global var $RT::EmailCompletionSearch. The default one
+is C<LIKE>.
+
+To change it, add a line like this in F<RTHOME/etc/RT_SiteConfig.pm> :
+
+ Set($EmailCompletionSearch, "STARTSWITH");
+
+This variable can take the values C<LIKE>, C<STARTSWITH> and
+C<ENDSWITH>.
+
 =head1 HOW TO ADD FIELD TO AUTOCOMPLETION
 
 If you find email field without autocomplete, you can modify
