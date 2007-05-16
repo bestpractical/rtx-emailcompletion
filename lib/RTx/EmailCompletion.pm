@@ -60,7 +60,7 @@ By default, completion works only for privileged users.
 
 You can activate it for unprivileged users (in the SelfService) by
 setting $EmailCompletionUnprivileged in
-RTHOME/etc/RT_SiteConfig.pm. There's three ways :
+F<RTHOME/etc/RT_SiteConfig.pm>. There's three ways :
 
 =over
 
