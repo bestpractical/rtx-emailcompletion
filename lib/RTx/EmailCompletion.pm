@@ -1,8 +1,52 @@
 package RTx::EmailCompletion;
 
 use strict;
+use RT::Users;
 
 our $VERSION = "0.03";
+
+sub search_rdbms {
+    my $Email = shift;
+    my $CurrentUser = shift;
+
+    my $Operator = $RT::EmailCompletionSearch || 'LIKE';
+
+    my @emails;
+
+    my $Users = RT::Users->new( $CurrentUser );
+    foreach my $field (@{$RT::EmailCompletionSearchFields}) {
+	$Users->Limit(SUBCLAUSE => 'EmailCompletion', ALIAS => 'main', FIELD => $field, OPERATOR => 'LIKE', VALUE => $Email, ENTRYAGGREGATOR => 'OR');
+    }
+
+    $RT::Logger->debug($Users->BuildSelectQuery);
+
+    while (my $User = $Users->Next()) {
+	next if $User->id == $RT::Nobody->id;
+
+	# some cleaning on emailaddress
+	next if $User->EmailAddress !~ m{[a-zA-Z0-9_.-]+@[^.]+\.[^.]};
+	next if $User->EmailAddress =~ m{[,?!/;\\]};
+
+	# if you're privileged user you can see anybody
+	#
+	# if you're not by default you can see nobody
+	# if RT::EmailCompletionUnprivileged is set to anybody you can see anybody
+	# else you can see only privileged users
+
+	if ( $CurrentUser->Privileged() or $RT::EmailCompletionUnprivileged eq 'everybody' ) {
+	    # Ok, show everybody
+	} elsif ( $RT::EmailCompletionUnprivileged eq 'privileged' ) {
+	    next unless $User->Privileged();
+	} elsif ( ref($RT::EmailCompletionUnprivileged) eq 'Regexp' ) {
+	    next unless $User->EmailAddress =~ m/$RT::EmailCompletionUnprivileged/;
+	} else {
+	    next
+	}
+
+	push @emails, $User->EmailAddress;
+    }
+    @emails;
+}
 
 1;
 
