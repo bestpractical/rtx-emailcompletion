@@ -3,7 +3,8 @@
 
 <%INIT>
 $RT::EmailCompletionNonPrivileged ||= '';
-$RT::EmailCompletionSearchFields ||= [qw(EmailAddress)];
+$RT::EmailCompletionSearchFields  ||= [qw(EmailAddress)];
+$RT::EmailCompletionSearch        ||= 'LIKE';
 
 my $CurrentUser = $session{CurrentUser};
 

@@ -9,13 +9,11 @@ sub search_rdbms {
     my $Email = shift;
     my $CurrentUser = shift;
 
-    my $Operator = $RT::EmailCompletionSearch || 'LIKE';
-
     my @emails;
 
     my $Users = RT::Users->new( $CurrentUser );
     foreach my $field (@{$RT::EmailCompletionSearchFields}) {
-	$Users->Limit(SUBCLAUSE => 'EmailCompletion', ALIAS => 'main', FIELD => $field, OPERATOR => 'LIKE', VALUE => $Email, ENTRYAGGREGATOR => 'OR');
+	$Users->Limit(SUBCLAUSE => 'EmailCompletion', ALIAS => 'main', FIELD => $field, OPERATOR => $RT::EmailCompletionSearch, VALUE => $Email, ENTRYAGGREGATOR => 'OR');
     }
 
     $RT::Logger->debug($Users->BuildSelectQuery);
