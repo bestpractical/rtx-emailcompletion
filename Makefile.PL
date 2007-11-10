@@ -4,7 +4,7 @@ RTx('EmailCompletion');
 author('Nicolas Chuche <nchuche@barna.be>');
 abstract('autompletion on mail');
 license('perl');
-WriteAll( );
+WriteAll( meta => 1 );
 
 sub MY::postamble {
     package MY;
