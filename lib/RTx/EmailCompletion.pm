@@ -92,6 +92,16 @@ To change it, add a line like this in F<RTHOME/etc/RT_SiteConfig.pm> :
 This variable can take the values C<LIKE>, C<STARTSWITH> and
 C<ENDSWITH>.
 
+By default, the plugin searches on Users.EmailAddress.
+
+You can change where it searches by setting $EmailCompletionSearchFields
+in RTHOME/etc/RT_SiteConfig.pm to an arrayref of fields from the
+Users table.
+
+   Set( $EmailCompletionSearchFields, [qw(EmailAddress RealName Name)] );
+
+This would allow you to search by usernames, full names and email addresses
+
 =head1 HOW TO ADD FIELD TO AUTOCOMPLETION
 
 If you find email field without autocomplete, you can modify
