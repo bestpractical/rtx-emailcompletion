@@ -11,6 +11,8 @@ sub search_rdbms {
     my $Email = shift;
     my $CurrentUser = shift;
 
+    return unless $CurrentUser->Privileged() or defined $RT::EmailCompletionUnprivileged;
+
     my @emails;
 
     my $Users = RT::Users->new( $CurrentUser );
@@ -20,6 +22,7 @@ sub search_rdbms {
 
     $RT::Logger->debug($Users->BuildSelectQuery);
 
+    my @users;
     while (my $User = $Users->Next()) {
 	next if $User->id == $RT::Nobody->id;
 
@@ -27,25 +30,29 @@ sub search_rdbms {
 	next if $User->EmailAddress !~ m{[a-zA-Z0-9_.-]+@[^.]+\.[^.]};
 	next if $User->EmailAddress =~ m{[,?!/;\\]};
 
-	# if you're privileged user you can see anybody
-	#
-	# if you're not by default you can see nobody
-	# if RT::EmailCompletionUnprivileged is set to anybody you can see anybody
-	# else you can see only privileged users
-
-	if ( $CurrentUser->Privileged() or $RT::EmailCompletionUnprivileged eq 'everybody' ) {
-	    # Ok, show everybody
-	} elsif ( $RT::EmailCompletionUnprivileged eq 'privileged' ) {
-	    next unless $User->Privileged();
-	} elsif ( ref($RT::EmailCompletionUnprivileged) eq 'Regexp' ) {
-	    next unless $User->EmailAddress =~ m/$RT::EmailCompletionUnprivileged/;
-	} else {
-	    next
-	}
-
-	push @emails, $User->EmailAddress;
+	push @users, $User;
     }
-    @emails;
+
+    # if you're privileged user you can see anybody
+    #
+    # if you're not by default you can see nobody
+    # if RT::EmailCompletionUnprivileged is set to anybody you can see anybody
+    # else you can see only privileged users
+
+    if ( $CurrentUser->Privileged() or $RT::EmailCompletionUnprivileged eq 'everybody' ) {
+	# Ok, show everybody
+
+    } elsif ( $RT::EmailCompletionUnprivileged eq 'privileged' ) {
+	@users = grep { $_->Privileged()  } @users;
+
+    } elsif ( ref($RT::EmailCompletionUnprivileged) eq 'Regexp' ) {
+	@users = grep { $_->EmailAddress() =~ m/$RT::EmailCompletionUnprivileged/ } @users;
+
+    } else {
+	@users = ();
+    }
+
+    my @email = map { $_->EmailAddress() } @users;
 }
 
 # we dynamically build search function
