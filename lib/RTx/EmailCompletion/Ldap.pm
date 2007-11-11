@@ -37,7 +37,7 @@ sub search_ldap {
 
     my @emails = map { $_->get_attribute( $RT::EmailCompletionLdapAttrShow ) } $mesg->entries;
 
-    @emails = grep { m/$RT::EmailCompletionUnprivileged/o } @emails
+    @emails = grep { m/$RT::EmailCompletionUnprivileged/ } @emails
 	if ref($RT::EmailCompletionUnprivileged) eq 'Regexp' and not $CurrentUser->Privileged();
 
     $mesg = $ldap->unbind();
