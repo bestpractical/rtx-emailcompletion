@@ -238,21 +238,23 @@ If not set, RTx::EmailCompletion will search for LdapFilter parameter
 =item *
 EmailCompletionLdapAttrSearch : the ldap search attributes
 
-  Set($EmailCompletionLdapAttrSearch, [qw/email cn/]);
+  Set($EmailCompletionLdapAttrSearch, [qw/mail cn/]);
 
-The default value is email.
+Default value is mail.
 
 =item *
-EmailCompletionLdapAttrShow : the email attribute name
+EmailCompletionLdapAttrShow : the mail attribute name
 
-  Set($EmailCompletionLdapAttrShow, "email");
+  Set($EmailCompletionLdapAttrShow, "mail");
+
+Default value is mail
 
 =item *
 EmailCompletionLdapMinLength : minimum parameter length to send an ldap request
 
   Set(EmailCompletionLdapMinLength, 6);
 
-Default is 4
+Default value is 4
 
 =back
 

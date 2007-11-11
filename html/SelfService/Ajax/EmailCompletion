@@ -9,8 +9,8 @@ $RT::EmailCompletionSearch        ||= 'LIKE';
 $RT::EmailCompletionLdapServer     ||= $RT::LdapServer;
 $RT::EmailCompletionLdapBase       ||= $RT::LdapBase;
 $RT::EmailCompletionLdapFilter     ||= $RT::LdapFilter;
-$RT::EmailCompletionLdapAttrShow   ||= "email";
-$RT::EmailCompletionLdapAttrSearch ||= [qw/email/];
+$RT::EmailCompletionLdapAttrShow   ||= "mail";
+$RT::EmailCompletionLdapAttrSearch ||= [qw/mail/];
 
 $RT::EmailCompletionLdapMinLength     ||= 4;
 
