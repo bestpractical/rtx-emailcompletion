@@ -5,6 +5,8 @@ use RT::Users;
 
 our $VERSION = "0.03";
 
+use constant DEBUG => 0;
+
 sub search_rdbms {
     my $Email = shift;
     my $CurrentUser = shift;
@@ -45,6 +47,36 @@ sub search_rdbms {
     }
     @emails;
 }
+
+# we dynamically build search function
+
+our $AUTOLOAD;
+sub AUTOLOAD {
+    (my $function = $AUTOLOAD) =~ s/.*:://;
+    die "Unable to find search function in AUTOLOAD" unless $function eq 'search';
+
+    my $mod_ldap;
+    if ($RT::EmailCompletionLdapServer and not $RT::EmailCompletionLdapDisabled) {
+	eval {
+	    require RTx::EmailCompletion::Ldap;
+	};
+	if ($@) {
+	    $RT::Logger->crit("Unable to load RTx::EmailCompletion::Ldap, perhaps you forgot to install Net::LDAP: $@\n");
+	} else {
+	    $mod_ldap = 1;
+	}
+    }
+    my $str = 'sub search { my @emails; ';
+    $str   .= 'push @emails, search_rdbms(@_);'                            unless $RT::EmailCompletionRdbmsDisabled;
+    $str   .= 'push @emails, RTx::EmailCompletion::Ldap::search_ldap(@_);' if $mod_ldap;
+    $str   .= 'return @emails }';
+
+    $RT::Logger->debug("function used is $str\n") if DEBUG;
+
+    eval $str;
+    goto &search;
+}
+
 
 1;
 
@@ -98,6 +130,12 @@ Install it like a standard perl module :
 
 =head1 CONFIGURATION
 
+This section is fairly long but you don't really need to read it if
+you just want the basic : autocompletion only for privileged users
+against all registred users of RT database.
+
+=head2 unprivileged users autocompletion
+
 By default, completion works only for privileged users.
 
 You can activate it for unprivileged users (in the SelfService) by
@@ -111,17 +149,25 @@ show everybody
 
   Set($EmailCompletionUnprivileged,"everybody");
 
+B<Be careful>, this will also show all yours LDAP users.
+
 =item *
 show only privileged users
 
   Set($EmailCompletionUnprivileged,"privileged");
+
+This won't show LDAP users
 
 =item *
 show only email matching a regexp
 
   Set($EmailCompletionUnprivileged, qr/\@my\.corp\.domain$/ );
 
+This will also show LDAP user mails that matchs the regexp
+
 =back
+
+=head2 change the database clause to search email
 
 You can also change the operator used in the C<where> clause to search
 email with the global var $RT::EmailCompletionSearch. The default one
@@ -144,6 +190,87 @@ Users table.
 
 This would allow you to search by usernames, full names and email addresses
 
+=head2 LDAP configuration
+
+Starting with RTx::EmailCompletion 0.03, autocompletion works with LDAP
+servers.
+
+If you already have configured LDAP authentication overlay, this
+configuration will be used.
+
+The following configuration parameters applied :
+
+=over
+
+=item *
+EmailCompletionLdapServer : the ldap server (mandatory)
+
+  Set($EmailCompletionLdapServer, "my.ldap.server");
+
+If not set, RTx::EmailCompletion will search for LdapServer parameter
+(configured for the LDAP RT authentification layout and some others
+LDAP RT extensions).
+
+=item *
+EmailCompletionLdapBase : the ldap base (mandatory)
+
+  Set($EmailCompletionLdapBase, "dc=debian,dc=org");
+
+If not set, RTx::EmailCompletion will search for LdapBase parameter
+(configured for the LDAP RT authentification layout and some others
+LDAP RT extensions).
+
+=item *
+EmailCompletionLdapFilter : the ldap filter if needed
+
+  Set($EmailCompletionLdapFilter, "(objectclass=person)");
+
+If not set, RTx::EmailCompletion will search for LdapFilter parameter
+(configured for the LDAP RT authentification layout).
+
+=item *
+EmailCompletionLdapAttrSearch : the ldap search attributes
+
+  Set($EmailCompletionLdapAttrSearch, [qw/email cn/]);
+
+The default value is email.
+
+=item *
+EmailCompletionLdapAttrShow : the email attribute name
+
+  Set($EmailCompletionLdapAttrShow, "email");
+
+=item *
+EmailCompletionLdapMinLength : minimum parameter length to send an ldap request
+
+  Set(EmailCompletionLdapMinLength, 6);
+
+Default is 4
+
+=back
+
+If you want to search only in LDAP, you must set :
+
+  Set($EmailCompletionBackend, "ldap");
+
+The minimum LDAP configuration look somethink like this :
+
+  Set($EmailCompletionLdapServer, "db.debian.org");
+  Set($EmailCompletionLdapBase, "dc=debian,dc=org");
+  Set($EmailCompletionLdapAttrShow,   "email");
+  Set($EmailCompletionLdapAttrSearch, [qw/email/]);
+
+You can disable ldap completion (useful if you have installed ldap
+authentication overlay and you don't want ldap completion) with :
+
+  Set($EmailCompletionLdapDisabled, 1);
+
+If you want to keep only LDAP completion, you can also disable RDBMS :
+
+  Set($EmailCompletionRdbmsDisabled, 1);
+
+The given value must true for perl.
+
 =head1 HOW TO ADD FIELD TO AUTOCOMPLETION
 
 If you find email field without autocomplete, you can modify
@@ -158,9 +285,9 @@ Regexp must match all the word because C<^> and C<$> are added for
 matching. So if you want to match C<Field1> and C<Field2> you must add
 something like C<Field.> or better C<Field[12]>.
 
-To verify javascript find your input tag, you can uncomment the line
-just after the "DEBUGGING PURPOSE" one. All input tags find by the
-script will appear with a big red border.
+To verify that javascript find your input tag, you can uncomment the
+line just after the "DEBUGGING PURPOSE" one. All input tags find by
+the script will appear with a big red border.
 
 =head1 UPGRADE FROM 0.01
 
@@ -171,7 +298,7 @@ delete :
   RTHOME/local/html/NoAuth/js/emailcompletion.js
   RTHOME/local/html/NoAuth/js/
 
-Be careful of you have other javascripts in RTHOME/local/html/NoAuth/js/
+Be careful if you have other javascripts in RTHOME/local/html/NoAuth/js/
 
 =head1 HISTORY
 

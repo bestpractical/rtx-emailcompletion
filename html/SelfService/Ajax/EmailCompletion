@@ -6,6 +6,18 @@ $RT::EmailCompletionNonPrivileged ||= '';
 $RT::EmailCompletionSearchFields  ||= [qw(EmailAddress)];
 $RT::EmailCompletionSearch        ||= 'LIKE';
 
+$RT::EmailCompletionLdapServer     ||= $RT::LdapServer;
+$RT::EmailCompletionLdapBase       ||= $RT::LdapBase;
+$RT::EmailCompletionLdapFilter     ||= $RT::LdapFilter;
+$RT::EmailCompletionLdapAttrShow   ||= "email";
+$RT::EmailCompletionLdapAttrSearch ||= [qw/email/];
+
+$RT::EmailCompletionLdapMinLength     ||= 4;
+
+# for the moment we can only show one attribute
+# but later perhaps we could add some other fields (address, ...)
+$RT::EmailCompletionLdapAttrShow = $RT::EmailCompletionLdapAttrShow->[0] if ref($RT::EmailCompletionLdapAttrShow) eq "ARRAY";
+
 my $CurrentUser = $session{CurrentUser};
 
 # by default SelfService users aren't allowed to use EmailCompletion
@@ -20,7 +32,7 @@ for (keys %ARGS) {
      if defined $ARGS{$_};
 }
 
-my @emails = RTx::EmailCompletion::search_rdbms($Email, $CurrentUser);
+my @emails = RTx::EmailCompletion::search($Email, $CurrentUser);
 
 my $users = qq{<ul class="contacts">};
 for my $email (@emails) {
