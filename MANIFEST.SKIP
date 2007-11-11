@@ -15,3 +15,5 @@
 \.bak$
 \.old$
 \.sw[a-z]$
+
+^extra

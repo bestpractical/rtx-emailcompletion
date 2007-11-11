@@ -1,9 +1,9 @@
 TODO
 
  * parameter to show other fields than email in autocompletion list (Name, Address, ...)
- * use dynamic function to match privileged/unprivileged criteria (should be faster than the if ... elsif ... else)
 
 DONE
 
  * enable/disable Completion for SelfService
  * add completion against LDAP
+ * optimisation to match privileged/unprivileged criteria (faster than the if ... elsif ... else inside the loop)
