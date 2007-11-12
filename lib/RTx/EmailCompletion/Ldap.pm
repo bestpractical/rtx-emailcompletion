@@ -51,7 +51,7 @@ sub search_ldap {
 
     $RT::Logger->debug("emails returned are: @emails\n") if RTx::EmailCompletion::DEBUG;
 
-    @emails;
+    sort @emails;
 }
 
 1;
