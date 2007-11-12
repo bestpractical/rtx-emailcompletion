@@ -1,0 +1,14 @@
+Changes for 0.03
+
+  * allow searching on fields other than email (Kevin Falcone && Best Practical)
+  * LDAP autocompletion (emails LDAP background color in light grey)
+  * optimisation in the match privileged/unprivileged criteria (faster than the if ... elsif ... else inside the loop)
+
+Changes for 0.02
+
+  * allow email completion for unprivileged users (disable by default). See README
+  * add debugging tools to find input tags found by emailcompletion.js
+
+Changes for 0.01
+
+  * first release
