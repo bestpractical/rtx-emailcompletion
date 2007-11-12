@@ -228,6 +228,24 @@ If not set, RTx::EmailCompletion will search for LdapBase parameter
 LDAP RT extensions).
 
 =item *
+EmailCompletionLdapUser : the ldap user if you need authentication
+
+  Set($EmailCompletionLdapUser, "myldapuser");
+
+If not set, RTx::EmailCompletion will search for LdapUser parameter
+(configured for the LDAP RT authentification layout and some others
+LDAP RT extensions).
+
+=item *
+EmailCompletionLdapPass : the ldap password if you need authentication
+
+  Set($EmailCompletionLdapPass, "mypassword");
+
+If not set, RTx::EmailCompletion will search for LdapPass parameter
+(configured for the LDAP RT authentification layout and some others
+LDAP RT extensions).
+
+=item *
 EmailCompletionLdapFilter : the ldap filter if needed
 
   Set($EmailCompletionLdapFilter, "(objectclass=person)");

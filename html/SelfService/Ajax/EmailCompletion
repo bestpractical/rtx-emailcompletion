@@ -7,6 +7,8 @@ $RT::EmailCompletionSearchFields  ||= [qw(EmailAddress)];
 $RT::EmailCompletionSearch        ||= 'LIKE';
 
 $RT::EmailCompletionLdapServer     ||= $RT::LdapServer;
+$RT::EmailCompletionLdapUser       ||= $RT::LdapUser;
+$RT::EmailCompletionLdapPass       ||= $RT::LdapPass;
 $RT::EmailCompletionLdapBase       ||= $RT::LdapBase;
 $RT::EmailCompletionLdapFilter     ||= $RT::LdapFilter;
 $RT::EmailCompletionLdapAttrShow   ||= "mail";
