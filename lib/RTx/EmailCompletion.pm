@@ -5,7 +5,7 @@ use RT::Users;
 
 our $VERSION = "0.03";
 
-use constant DEBUG => 1;
+use constant DEBUG => 0;
 
 sub search_rdbms {
     my $Email = shift;
