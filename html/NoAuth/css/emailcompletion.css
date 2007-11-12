@@ -20,8 +20,9 @@ li.contact {
   height:32px;
 }
 
-
-li.ldap { background-color: #eeeeee; }
+li.ldap {
+  background-color: #eee;
+}
 
 li.contact div.name {
   font-weight:bold;

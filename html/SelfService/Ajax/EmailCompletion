@@ -7,8 +7,12 @@ $RT::EmailCompletionSearchFields  ||= [qw(EmailAddress)];
 $RT::EmailCompletionSearch        ||= 'LIKE';
 
 $RT::EmailCompletionLdapServer     ||= $RT::LdapServer;
-$RT::EmailCompletionLdapUser       ||= $RT::LdapUser;
-$RT::EmailCompletionLdapPass       ||= $RT::LdapPass;
+
+if ($RT::EmailCompletionLdapServer eq $RT::LdapServer) {
+    $RT::EmailCompletionLdapUser       ||= $RT::LdapUser;
+    $RT::EmailCompletionLdapPass       ||= $RT::LdapPass;
+}
+
 $RT::EmailCompletionLdapBase       ||= $RT::LdapBase;
 $RT::EmailCompletionLdapFilter     ||= $RT::LdapFilter;
 $RT::EmailCompletionLdapAttrShow   ||= "mail";
@@ -41,7 +45,7 @@ for my $email (@$emails) {
     $users .= qq{<li class="contact"><div class="email">$email</div></li>};
 }
 for my $email (@$ldaps) {
-    $users .= qq{<li class="ldap contact"><div class="email">$email</div></li>};
+    $users .= qq{<li class="contact ldap"><div class="email">$email</div></li>};
 }
 $users .= '</ul>';
 
