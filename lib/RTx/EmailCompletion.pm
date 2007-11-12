@@ -5,7 +5,7 @@ use RT::Users;
 
 our $VERSION = "0.03";
 
-use constant DEBUG => 0;
+use constant DEBUG => 1;
 
 sub search_rdbms {
     my $Email = shift;
@@ -73,10 +73,10 @@ sub AUTOLOAD {
 	    $mod_ldap = 1;
 	}
     }
-    my $str = 'sub search { my @emails; ';
-    $str   .= 'push @emails, search_rdbms(@_);'                            unless $RT::EmailCompletionRdbmsDisabled;
-    $str   .= 'push @emails, RTx::EmailCompletion::Ldap::search_ldap(@_);' if $mod_ldap;
-    $str   .= 'return @emails }';
+    my $str = 'sub search { my (@emails, @ldaps);';
+    $str   .= '@emails = search_rdbms(@_);'                            unless $RT::EmailCompletionRdbmsDisabled;
+    $str   .= '@ldaps  = RTx::EmailCompletion::Ldap::search_ldap(@_);' if $mod_ldap;
+    $str   .= 'return (\@emails, \@ldaps); }';
 
     $RT::Logger->debug("function used is $str\n") if DEBUG;
 

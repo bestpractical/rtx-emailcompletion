@@ -34,11 +34,14 @@ for (keys %ARGS) {
      if defined $ARGS{$_};
 }
 
-my @emails = RTx::EmailCompletion::search($Email, $CurrentUser);
+my ($emails, $ldaps) = RTx::EmailCompletion::search($Email, $CurrentUser);
 
 my $users = qq{<ul class="contacts">};
-for my $email (@emails) {
+for my $email (@$emails) {
     $users .= qq{<li class="contact"><div class="email">$email</div></li>};
+}
+for my $email (@$ldaps) {
+    $users .= qq{<li class="ldap contact"><div class="email">$email</div></li>};
 }
 $users .= '</ul>';
 
