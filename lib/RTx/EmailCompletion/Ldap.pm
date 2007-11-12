@@ -17,7 +17,7 @@ sub search_ldap {
     my $ldap = new Net::LDAP($RT::EmailCompletionLdapServer);
 
     my $mesg = defined $RT::EmailCompletionLdapUser && $RT::EmailCompletionLdapUser ne '' ?
-	$ldap->bind($RT::EmailCompletionLdapUser, $RT::EmailCompletionLdapPass)
+	$ldap->bind($RT::EmailCompletionLdapUser, password => $RT::EmailCompletionLdapPass)
 	    : $ldap->bind();
 
     if ($mesg->code != LDAP_SUCCESS) {
