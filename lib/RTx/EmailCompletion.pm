@@ -104,7 +104,7 @@ to add AJAX autocompletion on all email field of RT. As adding
 completion is dynamic, it should work on most RT releases (see later
 if it's not the case).
 
-There's 3 S<things :>
+There's 4 S<things :>
 
 =over
 
@@ -122,6 +122,10 @@ S<autocomplete ;>
 
 a small javascript which parse html pages and add autocomplete on
 known input tags.
+
+=item *
+
+a perl module to handle all the logic
 
 =back
 
@@ -202,8 +206,9 @@ This would allow you to search by usernames, full names and email addresses
 Starting with RTx::EmailCompletion 0.03, autocompletion works with LDAP
 servers.
 
-If you already have configured LDAP authentication overlay, this
-configuration will be used.
+If you already have installed and configured LDAP authentication
+overlay, this configuration will be used and it should/could work just
+as it is.
 
 The following configuration parameters applied :
 
@@ -276,16 +281,10 @@ Default value is 4
 
 =back
 
-If you want to search only in LDAP, you must set :
-
-  Set($EmailCompletionBackend, "ldap");
-
 The minimum LDAP configuration look somethink like this :
 
   Set($EmailCompletionLdapServer, "db.debian.org");
   Set($EmailCompletionLdapBase, "dc=debian,dc=org");
-  Set($EmailCompletionLdapAttrShow,   "email");
-  Set($EmailCompletionLdapAttrSearch, [qw/email/]);
 
 You can disable ldap completion (useful if you have installed ldap
 authentication overlay and you don't want ldap completion) with :
@@ -296,7 +295,7 @@ If you want to keep only LDAP completion, you can also disable RDBMS :
 
   Set($EmailCompletionRdbmsDisabled, 1);
 
-The given value must true for perl.
+The given value must be true for perl.
 
 =head1 HOW TO ADD FIELD TO AUTOCOMPLETION
 
@@ -324,8 +323,9 @@ delete :
   RTHOME/local/html/Ajax/EmailCompletion
   RTHOME/local/html/NoAuth/js/emailcompletion.js
   RTHOME/local/html/NoAuth/js/
+  RTHOME/local/html/NoAuth/css/emailcompletion.css
 
-Be careful if you have other javascripts in RTHOME/local/html/NoAuth/js/
+B<Be careful> if you have other javascripts in RTHOME/local/html/NoAuth/js/
 
 =head1 HISTORY
 
