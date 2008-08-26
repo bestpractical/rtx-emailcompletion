@@ -12,3 +12,16 @@ sub MY::postamble {
     "\tpod2readme  lib/RTx/EmailCompletion.pm > README\n".
     "\tsvk log -v  > ChangeLog\n"
 }
+
+use File::Basename;
+use File::Copy;
+
+if ($RT::VERSION lt "3.8") {
+    for my $src (glob("scriptaculous/*.js")) {
+	my $dest = "html/NoAuth/js/" . basename($src);
+	copy $src => $dest;
+    }
+} else {
+    my @scriptaculous = grep { $_ !~ /emailcompletion/ } glob("html/NoAuth/js/*.js");
+    unlink @scriptaculous if @scriptaculous;
+}
