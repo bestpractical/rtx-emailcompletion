@@ -1,3 +1,8 @@
+Changes for 0.04
+
+  * deploy scriptaculous only for RT < 3.8
+  * add newest scriptaculous
+
 Changes for 0.03
 
   * allow searching on fields other than email (Kevin Falcone && Best Practical)
