@@ -3,7 +3,7 @@ package RTx::EmailCompletion;
 use strict;
 use RT::Users;
 
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 
 use constant DEBUG => 0;
 
@@ -95,7 +95,7 @@ RTx::EmailCompletion - Add auto completion on RT email fields
 
 =head1 VERSION
 
-This document describes version 0.03 of RTx::EmailCompletion.
+This document describes version 0.04 of RTx::EmailCompletion.
 
 =head1 DESCRIPTION
 
@@ -132,6 +132,9 @@ a perl module to handle all the logic
 =head1 INSTALLATION
 
 if upgrading from 0.01, see later UPGRADE FROM 0.01.
+
+if you've already use an earlier version of this module with RT >=
+3.8, see later SCRIPTACULOUS AND RT 3.8
 
 Install it like a standard perl module :
 
@@ -326,6 +329,17 @@ delete :
   RTHOME/local/html/NoAuth/css/emailcompletion.css
 
 B<Be careful> if you have other javascripts in RTHOME/local/html/NoAuth/js/
+
+=head1 SCRIPTACULOUS AND RT 3.8
+
+RT 3.8 and later come with their own scriptaculous library. So if you
+have installed an earlier release of this module with RT 3.8 and
+later, the original scriptaculous will be overriden by this module.
+
+The best solution is to remove RTHOME/share/html/NoAuth/js/ and copy
+RTSOURCE/share/html/NoAuth/js/ to RTHOME/share/html/NoAuth/.
+
+This release is not subject to this problem.
 
 =head1 HISTORY
 
