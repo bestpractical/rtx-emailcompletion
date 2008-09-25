@@ -1,6 +1,8 @@
 Changes for 0.04
 
+  * compatibility with RT 3.8
   * deploy scriptaculous only for RT < 3.8
+  * use Module::Install::RTx 0.23
   * add newest scriptaculous
 
 Changes for 0.03
