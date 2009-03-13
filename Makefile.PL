@@ -2,7 +2,7 @@ use inc::Module::Install;
 
 RTx('RTx-EmailCompletion');
 author('Nicolas Chuche <nchuche@barna.be>');
-abstract('autompletion on mail');
+abstract('autocompletion on mail');
 license('perl');
 WriteAll( meta => 1 );
 
