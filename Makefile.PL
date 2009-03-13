@@ -1,6 +1,6 @@
 use inc::Module::Install;
 
-RTx('EmailCompletion');
+RTx('RTx-EmailCompletion');
 author('Nicolas Chuche <nchuche@barna.be>');
 abstract('autompletion on mail');
 license('perl');

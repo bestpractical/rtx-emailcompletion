@@ -8,7 +8,7 @@ function initPage() {
 
 // we need two Arrays :
 // one for input with multiple email address allowed
-var multipleCompletion = new Array("Requestors", "Cc", "AdminCc", "WatcherAddressEmail[123]", "UpdateCc", "UpdateBcc");
+var multipleCompletion = new Array("Requestors", "To", "Bcc", "Cc", "AdminCc", "WatcherAddressEmail[123]", "UpdateCc", "UpdateBcc");
 
 // and one for input with only one email address allowed
 var singleCompletion   = new Array("(Add|Delete)Requestor", "(Add|Delete)Cc", "(Add|Delete)AdminCc");

@@ -3,7 +3,7 @@ package RTx::EmailCompletion;
 use strict;
 use RT::Users;
 
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 
 use constant DEBUG => 0;
 
@@ -95,7 +95,7 @@ RTx::EmailCompletion - Add auto completion on RT email fields
 
 =head1 VERSION
 
-This document describes version 0.05 of RTx::EmailCompletion.
+This document describes version 0.06 of RTx::EmailCompletion.
 
 =head1 DESCRIPTION
 
@@ -131,9 +131,9 @@ a perl module to handle all the logic
 
 =head1 INSTALLATION
 
-if upgrading from 0.01, see later UPGRADE FROM 0.01.
+if upgrading from a previous release see later UPGRADE FROM PREVIOUS RELEASE
 
-if you've already use an earlier version of this module with RT >=
+if you upgrade from a version older than 0.05 of this module with RT >=
 3.8, see later SCRIPTACULOUS AND RT 3.8
 
 Install it like a standard perl module :
@@ -143,6 +143,11 @@ Install it like a standard perl module :
  make install
 
 =head1 CONFIGURATION
+
+In RT 3.8 and later, to enable EmailCompletion plugin, you must add
+something like that in your etc/RT_SiteConfig.pm :
+
+    Set(@Plugins,(qw(RTx::EmailCompletion)));
 
 This section is fairly long but you don't really need to read it if
 you just want the basic : autocompletion only for privileged users
@@ -318,23 +323,19 @@ To verify that javascript find your input tag, you can uncomment the
 line just after the "DEBUGGING PURPOSE" one. All input tags find by
 the script will appear with a big red border.
 
-=head1 UPGRADE FROM 0.01
+=head1 UPGRADE FROM PREVIOUS RELEASE
 
-As directory structure has change, If you upgrade from 0.01, you must
-delete :
+Because of a change in Makefile.PL, if you upgrade from a previous
+release, you should delete everything from this package. You can find
 
-  RTHOME/local/html/Ajax/EmailCompletion
-  RTHOME/local/html/NoAuth/js/emailcompletion.js
-  RTHOME/local/html/NoAuth/js/
-  RTHOME/local/html/NoAuth/css/emailcompletion.css
-
-B<Be careful> if you have other javascripts in RTHOME/local/html/NoAuth/js/
+  find RTHOME | grep -i emailcompletion
 
 =head1 SCRIPTACULOUS AND RT 3.8
 
 RT 3.8 and later come with their own scriptaculous library. So if you
-have installed an earlier release of this module with RT 3.8 and
-later, the original scriptaculous will be overriden by this module.
+have installed an release older than 0.05 of this module with RT 3.8
+and later, the original scriptaculous will be overriden by this
+module.
 
 The best solution is to remove RTHOME/share/html/NoAuth/js/ and copy
 RTSOURCE/share/html/NoAuth/js/ to RTHOME/share/html/NoAuth/.

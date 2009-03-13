@@ -6,11 +6,13 @@ $RT::EmailCompletionNonPrivileged ||= '';
 $RT::EmailCompletionSearchFields  ||= [qw(EmailAddress)];
 $RT::EmailCompletionSearch        ||= 'LIKE';
 
-$RT::EmailCompletionLdapServer     ||= $RT::LdapServer;
+if (defined $RT::LdapServer) {
+    $RT::EmailCompletionLdapServer     ||= $RT::LdapServer;
 
-if ($RT::EmailCompletionLdapServer eq $RT::LdapServer) {
-    $RT::EmailCompletionLdapUser       ||= $RT::LdapUser;
-    $RT::EmailCompletionLdapPass       ||= $RT::LdapPass;
+    if ($RT::EmailCompletionLdapServer eq $RT::LdapServer) {
+	$RT::EmailCompletionLdapUser       ||= $RT::LdapUser;
+	$RT::EmailCompletionLdapPass       ||= $RT::LdapPass;
+    }
 }
 
 $RT::EmailCompletionLdapBase       ||= $RT::LdapBase;
