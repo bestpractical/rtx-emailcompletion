@@ -199,6 +199,9 @@ To change it, add a line like this in F<RTHOME/etc/RT_SiteConfig.pm> :
 This variable can take the values C<LIKE>, C<STARTSWITH> and
 C<ENDSWITH>.
 
+If you are running PostgreSQL, you can also use C<ILIKE> to do a case
+insensitive search
+
 By default, the plugin searches on Users.EmailAddress.
 
 You can change where it searches by setting $EmailCompletionSearchFields
