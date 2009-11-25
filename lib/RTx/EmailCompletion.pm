@@ -20,7 +20,7 @@ sub search_rdbms {
 	$Users->Limit(SUBCLAUSE => 'EmailCompletion', ALIAS => 'main', FIELD => $field, OPERATOR => $RT::EmailCompletionSearch, VALUE => $Email, ENTRYAGGREGATOR => 'OR');
     }
 
-    $RT::Logger->debug($Users->BuildSelectQuery);
+    $RT::Logger->debug($Users->BuildSelectQuery) if DEBUG;
 
     my @users;
     while (my $User = $Users->Next()) {
