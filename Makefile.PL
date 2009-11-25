@@ -9,8 +9,7 @@ WriteAll( meta => 1 );
 sub MY::postamble {
     package MY;
     "\npredist: all\n" .
-    "\tpod2readme  lib/RTx/EmailCompletion.pm > README\n".
-    "\tsvk log -v  > ChangeLog\n"
+    "\tpod2readme  lib/RTx/EmailCompletion.pm > README\n"
 }
 
 use File::Basename;
