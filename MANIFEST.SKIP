@@ -17,3 +17,5 @@
 \.sw[a-z]$
 
 ^extra
+^.git/
+^.gitignore
